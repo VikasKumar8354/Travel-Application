@@ -28,7 +28,8 @@ public class BookingController {
         return bookingService.createBooking(userId,destinationId,persons);
     }
 
-    public void delete(Long id){
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id){
         bookingService.deleteBooking(id);
     }
 }
