@@ -16,7 +16,7 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public List<Booking> getAll(){
         return bookingService.getAllBooking();
     }
@@ -26,5 +26,9 @@ public class BookingController {
                             @PathVariable Long destinationId,
                             @RequestParam int persons){
         return bookingService.createBooking(userId,destinationId,persons);
+    }
+
+    public void delete(Long id){
+        bookingService.deleteBooking(id);
     }
 }
