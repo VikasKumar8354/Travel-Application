@@ -14,9 +14,9 @@ import java.util.List;
 @Service
 public class ReviewService {
 
-    private  ReviewRepository reviewRepository;
-    private  DestinationRepository destinationRepository;
-    private  UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
+    private final DestinationRepository destinationRepository;
+    private final UserRepository userRepository;
 
     public ReviewService(ReviewRepository reviewRepository, DestinationRepository destinationRepository, UserRepository userRepository) {
         this.reviewRepository = reviewRepository;
@@ -24,16 +24,31 @@ public class ReviewService {
         this.userRepository = userRepository;
     }
 
-    public List<Review> findAll() { return reviewRepository.findAll(); }
-    public Review findById(Long id) { return reviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Review not found: " + id)); }
-    public List<Review> findByDestination(Long destinationId) { return reviewRepository.findByDestinationId(destinationId); }
+    public List<Review> findAll() {
+        return reviewRepository.findAll();
+    }
+
+    public Review findById(Long id) {
+        return reviewRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Review not found: " + id));
+    }
+
+    public List<Review> findByDestination(Long destinationId) {
+        return reviewRepository.findByDestinationId(destinationId);
+    }
 
     public Review addReview(Long userId, Long destinationId, int rating, String comment) {
-        Destination destination = destinationRepository.findById(destinationId).orElseThrow(() -> new ResourceNotFoundException("Destination not found: " + destinationId));
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
+
+        Destination destination = destinationRepository.findById(destinationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Destination not found: " + destinationId));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
         Review review = new Review(rating, comment, destination, user);
+
         return reviewRepository.save(review);
     }
 
-    public void delete(Long id) { userRepository.deleteById(id); }
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 }

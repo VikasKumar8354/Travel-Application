@@ -3,6 +3,7 @@ package com.travel.TravelApplication.Controller;
 import com.travel.TravelApplication.DTOs.PaymentRequest;
 import com.travel.TravelApplication.Model.Payment;
 import com.travel.TravelApplication.Service.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,20 +12,30 @@ import java.util.List;
 @RequestMapping("/api/payments")
 public class PaymentController {
 
+    @Autowired
     private final PaymentService service;
-    public PaymentController(PaymentService service) { this.service = service; }
 
-    @GetMapping
-    public List<Payment> all() { return service.findAll(); }
-
-    @GetMapping("/{id}")
-    public Payment get(@PathVariable Long id) { return service.findById(id); }
-
-    @PostMapping
-    public Payment pay(@RequestBody PaymentRequest req) {
-        return service.makePayment(req.getBookingId(), req.getAmount(), req.getPaymentMode());
+    public PaymentController(PaymentService service) {
+        this.service = service;
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) { service.delete(id); return "Deleted"; }
+    @GetMapping("/getAll")
+    public List<Payment> getAll() {
+        return service.findAll();
+    }
+
+    @GetMapping("/getById/{id}")
+    public Payment get(@PathVariable Long id) {
+        return service.findById(id);
+    }
+
+    @PostMapping("/pay")
+    public Payment pay(@RequestBody PaymentRequest paymentRequest) {
+        return service.makePayment(paymentRequest.getBookingId(), paymentRequest.getAmount(), paymentRequest.getPaymentMode());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        service.delete(id); return "Deleted";
+    }
 }

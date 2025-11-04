@@ -4,6 +4,7 @@ import com.travel.TravelApplication.Model.Itinerary;
 import com.travel.TravelApplication.Model.TourPackage;
 import com.travel.TravelApplication.Service.ItineraryService;
 import com.travel.TravelApplication.Service.TourPackageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,26 +13,37 @@ import java.util.List;
 @RequestMapping("/api/TourPackage")
 public class TourPackageController {
 
+    @Autowired
     private final TourPackageService service;
+    @Autowired
     private final ItineraryService itineraryService;
 
     public TourPackageController(TourPackageService service, ItineraryService itineraryService) {
-        this.service = service; this.itineraryService = itineraryService;
+        this.service = service;
+        this.itineraryService = itineraryService;
     }
 
-    @GetMapping
-    public List<TourPackage> all() { return service.findAll(); }
+    @GetMapping("/getAll")
+    public List<TourPackage> getAll() {
+        return service.findAll();
+    }
 
-    @GetMapping("/{id}")
-    public TourPackage get(@PathVariable Long id) { return service.findById(id); }
+    @GetMapping("/getById/{id}")
+    public TourPackage get(@PathVariable Long id) {
+        return service.findById(id);
+    }
 
-    @PostMapping
-    public TourPackage create(@RequestBody TourPackage p) { return service.create(p); }
+    @PostMapping("/create")
+    public TourPackage create(@RequestBody TourPackage tourPackage) {
+        return service.create(tourPackage);
+    }
 
-    @PutMapping("/{id}")
-    public TourPackage update(@PathVariable Long id, @RequestBody TourPackage p) { return service.update(id, p); }
+    @PutMapping("/update/{id}")
+    public TourPackage update(@PathVariable Long id, @RequestBody TourPackage tourPackage) {
+        return service.update(id, tourPackage);
+    }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) { service.delete(id); return "Deleted"; }
 
     // Itinerary endpoints
