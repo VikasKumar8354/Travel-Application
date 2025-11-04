@@ -12,7 +12,7 @@ import java.util.List;
 public class DestinationService {
 
     @Autowired
-    private DestinationRepository destinationRepository;
+    private final DestinationRepository destinationRepository;
 
     public DestinationService(DestinationRepository destinationRepository){
         this.destinationRepository = destinationRepository;

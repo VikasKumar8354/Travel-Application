@@ -16,11 +16,11 @@ import java.util.List;
 public class BookingService {
 
     @Autowired
-    private  BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     @Autowired
-    private DestinationRepository destinationRepository;
+    private final DestinationRepository destinationRepository;
 
     public BookingService(BookingRepository bookingRepository,UserRepository userRepository,DestinationRepository destinationRepository){
         this.bookingRepository = bookingRepository;

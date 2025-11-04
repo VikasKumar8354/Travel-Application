@@ -12,7 +12,7 @@ import java.util.List;
 public class DestinationController {
 
     @Autowired
-    private DestinationService destinationService;
+    private final DestinationService destinationService;
 
     public DestinationController(DestinationService destinationService){
         this.destinationService = destinationService;
