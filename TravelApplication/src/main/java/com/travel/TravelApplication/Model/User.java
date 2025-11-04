@@ -2,6 +2,8 @@ package com.travel.TravelApplication.Model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -12,14 +14,29 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String phone;
 
-    public User(){}
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
 
-    public User(Long id, String name, String email, String password) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
+    public User() {}
+
+    // ✅ Constructor for creating new users (your code)
+    public User(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    // ✅ Optional: full constructor (for testing or manual creation)
+    public User(Long id, String name, String email, String phone) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -52,5 +69,29 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

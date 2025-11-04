@@ -1,12 +1,12 @@
 package com.travel.TravelApplication.Service;
 
+import com.travel.TravelApplication.ExceptionHandling.ResourceNotFoundException;
 import com.travel.TravelApplication.Model.Booking;
 import com.travel.TravelApplication.Model.Destination;
 import com.travel.TravelApplication.Model.User;
 import com.travel.TravelApplication.Repository.BookingRepository;
 import com.travel.TravelApplication.Repository.DestinationRepository;
 import com.travel.TravelApplication.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,41 +15,34 @@ import java.util.List;
 @Service
 public class BookingService {
 
-    @Autowired
-    private final BookingRepository bookingRepository;
-    @Autowired
-    private final UserRepository userRepository;
-    @Autowired
-    private final DestinationRepository destinationRepository;
+    private  BookingRepository bookingRepository;
+    private  UserRepository userRepository;
+    private  DestinationRepository destinationRepository;
 
-    public BookingService(BookingRepository bookingRepository,UserRepository userRepository,DestinationRepository destinationRepository){
+    public BookingService(BookingRepository bookingRepository, UserRepository userRepository, DestinationRepository destinationRepository) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.destinationRepository = destinationRepository;
-
     }
 
-    public List<Booking> getAllBooking(){
-        return bookingRepository.findAll();
-    }
+    public List<Booking> findAll() { return bookingRepository.findAll(); }
+    public Booking findById(Long id) { return bookingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Booking not found: " + id)); }
+    public List<Booking> findByUser(Long userId) { return bookingRepository.findByUserId(userId); }
 
-    public Booking createBooking(Long userId, Long destinationId, int persons) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        Destination destination = destinationRepository.findById(destinationId)
-                .orElseThrow(() -> new RuntimeException("Destination not found"));
+    public Booking create(Long userId, Long destinationId, int numberOfPeople, LocalDate bookingDate) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
+        Destination destination = destinationRepository.findById(destinationId).orElseThrow(() -> new ResourceNotFoundException("Destination not found: " + destinationId));
+        Booking booking = new Booking(LocalDate.now(), LocalDate.now().plusDays(7), numberOfPeople, user, destination);
 
-        Booking booking = new Booking();
-        booking.setUser(user);
-        booking.setDestination(destination);
-        booking.setBookingDate(LocalDate.now());
-        booking.setPersons(persons);
-        booking.setTotalCost(destination.getPrice() * persons);
-
+        booking.setStatus("CONFIRMED");
         return bookingRepository.save(booking);
     }
 
-    public void deleteBooking(Long id){
-        bookingRepository.deleteById(id);
+    public void cancel(Long bookingId) {
+        Booking b = findById(bookingId);
+        b.setStatus("CANCELLED");
+        bookingRepository.save(b);
     }
+
+    public void delete(Long id) { bookingRepository.deleteById(id); }
 }

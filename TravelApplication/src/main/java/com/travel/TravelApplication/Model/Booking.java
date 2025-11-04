@@ -12,34 +12,47 @@ public class Booking {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "destination_id")
     private Destination destination;
+
+    @OneToOne(mappedBy = "booking",cascade = CascadeType.ALL)
+    private Payment payment;
 
     private LocalDate bookingDate;
     private int persons;
-    private double totalCost;
+    private String status;
 
     public Booking() {}
 
-    public Booking(Long id, User user, Destination destination, LocalDate bookingDate, int persons, double totalCost) {
+    // ✅ Existing constructor (you already have)
+    public Booking(Long id, User user, Destination destination, Payment payment, LocalDate travelDate, int persons, String status) {
         this.id = id;
         this.user = user;
         this.destination = destination;
+        this.payment = payment;
+        this.persons = persons;
+        this.status = status;
+    }
+
+    // ✅ ADD THIS — constructor without id and payment
+    public Booking(LocalDate bookingDate, LocalDate travelDate, int persons, User user, Destination destination) {
         this.bookingDate = bookingDate;
         this.persons = persons;
-        this.totalCost = totalCost;
+        this.user = user;
+        this.destination = destination;
+        this.status = "PENDING"; // default status
     }
 
-    public Long getId() {
+    public Long getId(){
         return id;
     }
-
-    public void setId(Long id) {
+    public void setId(Long id){
         this.id = id;
     }
-
     public User getUser() {
         return user;
     }
@@ -54,6 +67,14 @@ public class Booking {
 
     public void setDestination(Destination destination) {
         this.destination = destination;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public LocalDate getBookingDate() {
@@ -72,11 +93,11 @@ public class Booking {
         this.persons = persons;
     }
 
-    public double getTotalCost() {
-        return totalCost;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTotalCost(double totalCost) {
-        this.totalCost = totalCost;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

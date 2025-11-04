@@ -2,7 +2,6 @@ package com.travel.TravelApplication.Controller;
 
 import com.travel.TravelApplication.Model.Destination;
 import com.travel.TravelApplication.Service.DestinationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,30 +10,21 @@ import java.util.List;
 @RequestMapping("/api/destination")
 public class DestinationController {
 
-    @Autowired
-    private final DestinationService destinationService;
+    private final DestinationService service;
+    public DestinationController(DestinationService service) { this.service = service; }
 
-    public DestinationController(DestinationService destinationService){
-        this.destinationService = destinationService;
-    }
+    @GetMapping
+    public List<Destination> getAll() { return service.findAll(); }
 
-    @PostMapping("/add")
-    public Destination add(@RequestBody Destination destination){
-        return destinationService.addDestination(destination);
-    }
+    @GetMapping("/{id}")
+    public Destination getById(@PathVariable Long id) { return service.findById(id); }
 
-    @GetMapping("/getAll")
-    public List<Destination> getAll(){
-        return destinationService.getAllDestination();
-    }
+    @PostMapping
+    public Destination create(@RequestBody Destination d) { return service.create(d); }
 
-    @GetMapping("/getById/{id}")
-    public Destination getById(@PathVariable Long id){
-        return destinationService.getById(id);
-    }
+    @PutMapping("/{id}")
+    public Destination update(@PathVariable Long id, @RequestBody Destination d) { return service.update(id, d); }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
-        destinationService.deleteDestination(id);
-    }
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) { service.delete(id); return "Deleted"; }
 }

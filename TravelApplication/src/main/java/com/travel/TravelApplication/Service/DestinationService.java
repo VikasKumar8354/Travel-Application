@@ -11,27 +11,26 @@ import java.util.List;
 @Service
 public class DestinationService {
 
-    @Autowired
-    private final DestinationRepository destinationRepository;
+    private  DestinationRepository destinationRepository;
+    public DestinationService(DestinationRepository destinationRepository) { this.destinationRepository = destinationRepository; }
 
-    public DestinationService(DestinationRepository destinationRepository){
-        this.destinationRepository = destinationRepository;
-    }
-
-
-    public Destination addDestination(Destination destination){
-        return destinationRepository.save(destination);
-    }
-
-    public List<Destination> getAllDestination(){
+    public List<Destination> findAll() {
         return destinationRepository.findAll();
     }
-
-    public Destination getById(Long id){
-        return destinationRepository.findById(id) .orElseThrow(() -> new ResourceNotFoundException("Destination Not Fond"));
+    public Destination findById(Long id) {
+        return destinationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Destination not found: " + id));
     }
-
-    public void deleteDestination(Long id){
-        destinationRepository.deleteById(id);
+    public Destination create(Destination d) {
+        return destinationRepository.save(d);
     }
+    public Destination update(Long id, Destination updated) {
+        Destination d = findById(id);
+        d.setName(updated.getName());
+        d.setCountry(updated.getCountry());
+        d.setPrice(updated.getPrice());
+        d.setDescription(updated.getDescription());
+        return destinationRepository.save(d);
+    }
+    public void delete(Long id) { destinationRepository.deleteById(id); }
 }

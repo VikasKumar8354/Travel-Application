@@ -1,9 +1,6 @@
 package com.travel.TravelApplication.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Destination {
@@ -15,6 +12,8 @@ public class Destination {
     private String name;
     private String country;
     private double price;
+
+    @Column(length = 200)
     private String description;
 
     public Destination() {}
