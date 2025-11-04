@@ -6,6 +6,7 @@ import com.travel.TravelApplication.Model.User;
 import com.travel.TravelApplication.Repository.BookingRepository;
 import com.travel.TravelApplication.Repository.DestinationRepository;
 import com.travel.TravelApplication.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,9 +15,11 @@ import java.util.List;
 @Service
 public class BookingService {
 
-
+    @Autowired
     private  BookingRepository bookingRepository;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private DestinationRepository destinationRepository;
 
     public BookingService(BookingRepository bookingRepository,UserRepository userRepository,DestinationRepository destinationRepository){

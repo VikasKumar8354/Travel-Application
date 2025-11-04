@@ -2,6 +2,7 @@ package com.travel.TravelApplication.Controller;
 
 import com.travel.TravelApplication.Model.User;
 import com.travel.TravelApplication.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
     public UserController(UserService userService){

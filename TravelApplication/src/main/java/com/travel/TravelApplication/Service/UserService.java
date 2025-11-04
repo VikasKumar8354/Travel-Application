@@ -3,6 +3,7 @@ package com.travel.TravelApplication.Service;
 import com.travel.TravelApplication.ExceptionHandling.ResourceNotFoundException;
 import com.travel.TravelApplication.Model.User;
 import com.travel.TravelApplication.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository){

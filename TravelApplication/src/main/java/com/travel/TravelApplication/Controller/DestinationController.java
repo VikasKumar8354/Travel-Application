@@ -2,6 +2,7 @@ package com.travel.TravelApplication.Controller;
 
 import com.travel.TravelApplication.Model.Destination;
 import com.travel.TravelApplication.Service.DestinationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @RequestMapping("/api/destination")
 public class DestinationController {
 
+    @Autowired
     private DestinationService destinationService;
 
     public DestinationController(DestinationService destinationService){
