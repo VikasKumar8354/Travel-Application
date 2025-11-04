@@ -13,35 +13,35 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private final UserService service;
+    private UserService userService;
 
     public UserController(UserService service) {
-        this.service = service;
+        this.userService = service;
     }
 
     @GetMapping("/getAll")
     public List<User> all() {
-        return service.findAll();
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public User getById(@PathVariable Long id) {
-        return service.findById(id);
+        return userService.findById(id);
     }
 
     @PostMapping("/create")
     public User create(@RequestBody UserDTO userDTO) {
         User user = new User(userDTO.getName(), userDTO.getEmail(), userDTO.getPhone());
-        return service.create(user);
+        return userService.create(user);
     }
 
     @PutMapping("/update/{id}")
     public User update(@PathVariable Long id, @RequestBody User user) {
-        return service.update(id, user);
+        return userService.update(id, user);
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        service.delete(id); return "Deleted";
+        userService.delete(id); return "Deleted";
     }
 }
