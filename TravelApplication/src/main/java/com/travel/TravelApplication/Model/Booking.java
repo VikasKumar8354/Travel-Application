@@ -24,29 +24,36 @@ public class Booking {
 
     private LocalDate bookingDate;
     private int persons;
+    private LocalDate travelDate;
     private String status;
 
     public Booking() {}
 
-    // ✅ Existing constructor (you already have)
     public Booking(Long id, User user, Destination destination, Payment payment, LocalDate travelDate, int persons, String status) {
         this.id = id;
         this.user = user;
         this.destination = destination;
+        this.travelDate = travelDate;
         this.payment = payment;
         this.persons = persons;
         this.status = status;
     }
 
-    // ✅ ADD THIS — constructor without id and payment
     public Booking(LocalDate bookingDate, LocalDate travelDate, int persons, User user, Destination destination) {
         this.bookingDate = bookingDate;
         this.persons = persons;
         this.user = user;
         this.destination = destination;
-        this.status = "PENDING"; // default status
+        this.travelDate = travelDate;
+        this.status = "PENDING";
     }
 
+    public LocalDate getTravelDate(){
+        return travelDate;
+    }
+    public void setTravelDate(LocalDate travelDate){
+        this.travelDate = travelDate;
+    }
     public Long getId(){
         return id;
     }

@@ -49,7 +49,7 @@ public class BookingService {
 
         Destination destination = destinationRepository.findById(destinationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Destination not found: " + destinationId));
-        Booking booking = new Booking(LocalDate.now(), LocalDate.now().plusDays(7), numberOfPeople, user, destination);
+        Booking booking = new Booking(LocalDate.now(), LocalDate.now().plusDays(7),numberOfPeople, user, destination);
 
         booking.setStatus("CONFIRMED");
         return bookingRepository.save(booking);
