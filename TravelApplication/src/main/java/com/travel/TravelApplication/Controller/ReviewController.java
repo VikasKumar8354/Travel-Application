@@ -14,25 +14,25 @@ import java.util.Map;
 public class ReviewController {
 
     @Autowired
-    private final ReviewService service;
+    private final ReviewService reviewService;
 
-    public ReviewController(ReviewService service) {
-        this.service = service;
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/getAll")
     public List<Review> getAll() {
-        return service.findAll();
+        return reviewService.findAll();
     }
 
     @GetMapping("/getById/{id}")
     public Review get(@PathVariable Long id) {
-        return service.findById(id);
+        return reviewService.findById(id);
     }
 
     @GetMapping("/destination/{destinationId}")
     public List<Review> byDestination(@PathVariable Long destinationId) {
-        return service.findByDestination(destinationId);
+        return reviewService.findByDestination(destinationId);
     }
 
     @PostMapping("/add")
@@ -42,12 +42,12 @@ public class ReviewController {
         Long destinationId = Long.valueOf(payload.get("destinationId").toString());
         int rating = Integer.parseInt(payload.get("rating").toString());
         String comment = payload.get("comment").toString();
-        return service.addReview(userId, destinationId, rating, comment);
+        return reviewService.addReview(userId, destinationId, rating, comment);
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        service.delete(id); return "Deleted";
+        reviewService.delete(id); return "Deleted";
     }
 }
 

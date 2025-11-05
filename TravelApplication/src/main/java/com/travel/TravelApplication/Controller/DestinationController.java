@@ -12,34 +12,34 @@ import java.util.List;
 public class DestinationController {
 
     @Autowired
-    private final DestinationService service;
+    private final DestinationService destinationService;
 
-    public DestinationController(DestinationService service) {
-        this.service = service;
+    public DestinationController(DestinationService destinationService) {
+        this.destinationService = destinationService;
     }
 
     @GetMapping("/getAll")
     public List<Destination> getAll() {
-        return service.findAll();
+        return destinationService.findAll();
     }
 
     @GetMapping("/getById/{id}")
     public Destination getById(@PathVariable Long id) {
-        return service.findById(id);
+        return destinationService.findById(id);
     }
 
     @PostMapping("/create")
     public Destination create(@RequestBody Destination destination) {
-        return service.create(destination);
+        return destinationService.create(destination);
     }
 
     @PutMapping("/update/{id}")
     public Destination update(@PathVariable Long id, @RequestBody Destination destination) {
-        return service.update(id, destination);
+        return destinationService.update(id, destination);
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        service.delete(id); return "Deleted";
+        destinationService.delete(id); return "Deleted";
     }
 }

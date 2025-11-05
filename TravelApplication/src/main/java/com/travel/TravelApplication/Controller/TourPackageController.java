@@ -14,7 +14,7 @@ import java.util.List;
 public class TourPackageController {
 
     @Autowired
-    private TourPackageService tourPackageService;
+    private final TourPackageService tourPackageService;
     @Autowired
     private final ItineraryService itineraryService;
 

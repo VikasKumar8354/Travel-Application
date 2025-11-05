@@ -13,37 +13,37 @@ import java.util.List;
 public class BookingController {
 
     @Autowired
-    private final BookingService service;
+    private final BookingService bookingService;
 
-    public BookingController(BookingService service) {
-        this.service = service;
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/getAll")
     public List<Booking> getAll() {
-        return service.findAll();
+        return bookingService.findAll();
     }
 
     @GetMapping("/getById/{id}")
     public Booking getById(@PathVariable Long id) {
-        return service.findById(id);
+        return bookingService.findById(id);
     }
 
     @GetMapping("/user/{userId}")
     public List<Booking> byUser(@PathVariable Long userId) {
-        return service.findByUser(userId); }
+        return bookingService.findByUser(userId); }
 
     @PostMapping("/create")
     public Booking create(@RequestBody BookingRequest bookingRequest) {
-        return service.create(bookingRequest.getUserId(), bookingRequest.getDestinationId(), bookingRequest.getNumberOfPeople(), bookingRequest.getBookingDate());
+        return bookingService.create(bookingRequest.getUserId(), bookingRequest.getDestinationId(), bookingRequest.getNumberOfPeople(), bookingRequest.getBookingDate());
     }
 
     @PostMapping("/cancel/{id}")
     public String cancel(@PathVariable Long id) {
-        service.cancel(id);
+        bookingService.cancel(id);
         return "Cancelled";
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) { service.delete(id); return "Deleted"; }
+    public String delete(@PathVariable Long id) { bookingService.delete(id); return "Deleted"; }
 }

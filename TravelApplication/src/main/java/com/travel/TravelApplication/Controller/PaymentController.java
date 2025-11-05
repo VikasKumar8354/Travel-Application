@@ -13,29 +13,29 @@ import java.util.List;
 public class PaymentController {
 
     @Autowired
-    private final PaymentService service;
+    private final PaymentService paymentService;
 
-    public PaymentController(PaymentService service) {
-        this.service = service;
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
 
     @GetMapping("/getAll")
     public List<Payment> getAll() {
-        return service.findAll();
+        return paymentService.findAll();
     }
 
     @GetMapping("/getById/{id}")
     public Payment get(@PathVariable Long id) {
-        return service.findById(id);
+        return paymentService.findById(id);
     }
 
     @PostMapping("/pay")
     public Payment pay(@RequestBody PaymentRequest paymentRequest) {
-        return service.makePayment(paymentRequest.getBookingId(), paymentRequest.getAmount(), paymentRequest.getPaymentMode());
+        return paymentService.makePayment(paymentRequest.getBookingId(), paymentRequest.getAmount(), paymentRequest.getPaymentMode());
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        service.delete(id); return "Deleted";
+        paymentService.delete(id); return "Deleted";
     }
 }
