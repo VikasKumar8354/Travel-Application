@@ -1,5 +1,7 @@
 package com.travel.TravelApplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -13,6 +15,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     @ManyToOne

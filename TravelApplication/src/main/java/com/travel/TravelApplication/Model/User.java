@@ -1,5 +1,6 @@
 package com.travel.TravelApplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class User {
     private String phone;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

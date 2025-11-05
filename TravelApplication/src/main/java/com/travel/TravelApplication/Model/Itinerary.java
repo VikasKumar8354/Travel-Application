@@ -1,5 +1,6 @@
 package com.travel.TravelApplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,8 @@ public class Itinerary {
     private String place;
 
     @ManyToOne
+    @JoinColumn(name = "tour_package_id")
+    @JsonBackReference
     private TourPackage tourPackage;
 
     public Itinerary(){}

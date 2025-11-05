@@ -1,10 +1,14 @@
 package com.travel.TravelApplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
+
 public class TourPackage {
 
     @Id
@@ -18,6 +22,7 @@ public class TourPackage {
     private String description;
 
     @OneToMany(mappedBy = "tourPackage", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Itinerary> itineraries;
 
     public TourPackage(){}

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +18,7 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 
     // ✅ Default constructor
     public Review() {}
