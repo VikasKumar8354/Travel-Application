@@ -38,6 +38,7 @@ public class ItineraryService {
 
         return itineraryRepository.save(itinerary);
     }
+
     public List<Itinerary> findByTourPackage(Long tourPackageId) {
         return itineraryRepository.findByTourPackageId(tourPackageId);
     }

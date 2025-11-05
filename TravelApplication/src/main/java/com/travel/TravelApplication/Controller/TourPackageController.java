@@ -14,37 +14,38 @@ import java.util.List;
 public class TourPackageController {
 
     @Autowired
-    private final TourPackageService service;
+    private TourPackageService tourPackageService;
     @Autowired
     private final ItineraryService itineraryService;
 
-    public TourPackageController(TourPackageService service, ItineraryService itineraryService) {
-        this.service = service;
+    public TourPackageController(TourPackageService tourPackageService, ItineraryService itineraryService) {
+        this.tourPackageService = tourPackageService;
         this.itineraryService = itineraryService;
     }
 
     @GetMapping("/getAll")
     public List<TourPackage> getAll() {
-        return service.findAll();
+        return tourPackageService.findAll();
     }
 
     @GetMapping("/getById/{id}")
     public TourPackage get(@PathVariable Long id) {
-        return service.findById(id);
+        return tourPackageService.findById(id);
     }
 
     @PostMapping("/create")
     public TourPackage create(@RequestBody TourPackage tourPackage) {
-        return service.create(tourPackage);
+        return tourPackageService.create(tourPackage);
     }
 
     @PutMapping("/update/{id}")
     public TourPackage update(@PathVariable Long id, @RequestBody TourPackage tourPackage) {
-        return service.update(id, tourPackage);
+        return tourPackageService.update(id, tourPackage);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) { service.delete(id); return "Deleted"; }
+    public String delete(@PathVariable Long id) {
+        tourPackageService.delete(id); return "Deleted"; }
 
     // Itinerary endpoints
     @PostMapping("/{packageId}/itineraries")
