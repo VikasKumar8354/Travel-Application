@@ -54,15 +54,19 @@ public class Booking {
     public LocalDate getTravelDate(){
         return travelDate;
     }
+
     public void setTravelDate(LocalDate travelDate){
         this.travelDate = travelDate;
     }
+
     public Long getId(){
         return id;
     }
+
     public void setId(Long id){
         this.id = id;
     }
+
     public User getUser() {
         return user;
     }
