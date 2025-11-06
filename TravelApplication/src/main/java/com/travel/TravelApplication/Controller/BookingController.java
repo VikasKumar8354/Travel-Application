@@ -31,7 +31,8 @@ public class BookingController {
 
     @GetMapping("/user/{userId}")
     public List<Booking> byUser(@PathVariable Long userId) {
-        return bookingService.findByUser(userId); }
+        return bookingService.findByUser(userId);
+    }
 
     @PostMapping("/create")
     public Booking create(@RequestBody BookingRequest bookingRequest) {
@@ -45,5 +46,7 @@ public class BookingController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) { bookingService.delete(id); return "Deleted"; }
+    public String delete(@PathVariable Long id) {
+        bookingService.delete(id); return "Deleted";
+    }
 }
