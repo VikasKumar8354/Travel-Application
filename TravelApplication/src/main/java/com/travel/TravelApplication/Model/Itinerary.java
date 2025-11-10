@@ -11,8 +11,10 @@ public class Itinerary {
     private Long id;
 
     private String dayTitle;
+
     @Column(length = 2000)
     private String activity;
+
     private String place;
 
     @ManyToOne
