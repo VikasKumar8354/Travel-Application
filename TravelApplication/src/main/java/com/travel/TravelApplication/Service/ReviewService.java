@@ -8,7 +8,6 @@ import com.travel.TravelApplication.Repository.DestinationRepository;
 import com.travel.TravelApplication.Repository.ReviewRepository;
 import com.travel.TravelApplication.Repository.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
