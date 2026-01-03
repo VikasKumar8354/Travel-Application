@@ -46,7 +46,6 @@ public class ReviewService {
 
         return reviewRepository.save(review);
     }
-
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
